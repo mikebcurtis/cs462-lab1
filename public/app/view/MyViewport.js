@@ -52,8 +52,14 @@ Ext.define('MyApp.view.MyViewport', {
                             text: 'Login'
                         },
                         {
-                            xtype: 'button',
-                            text: 'Create Account'
+                            xtype: 'fieldset',
+                            title: 'Don\'t Have an Account?',
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    text: 'Create Account'
+                                }
+                            ]
                         }
                     ]
                 },
