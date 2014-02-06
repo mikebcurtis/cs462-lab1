@@ -16,13 +16,23 @@
 Ext.define('MyApp.view.MyViewport', {
     extend: 'Ext.container.Viewport',
 
+    layout: {
+        align: 'center',
+        type: 'vbox'
+    },
+
     initComponent: function() {
         var me = this;
 
         Ext.applyIf(me, {
             items: [
                 {
+                    xtype: 'container',
+                    flex: 1
+                },
+                {
                     xtype: 'form',
+                    flex: 1,
                     maxWidth: 500,
                     bodyPadding: 10,
                     title: 'Login',
@@ -46,6 +56,10 @@ Ext.define('MyApp.view.MyViewport', {
                             text: 'Create Account'
                         }
                     ]
+                },
+                {
+                    xtype: 'container',
+                    flex: 1
                 }
             ]
         });
