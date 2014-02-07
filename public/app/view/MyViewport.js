@@ -17,8 +17,7 @@ Ext.define('MyApp.view.MyViewport', {
     extend: 'Ext.container.Viewport',
 
     layout: {
-        align: 'center',
-        type: 'vbox'
+        type: 'border'
     },
 
     initComponent: function() {
@@ -27,45 +26,69 @@ Ext.define('MyApp.view.MyViewport', {
         Ext.applyIf(me, {
             items: [
                 {
-                    xtype: 'container',
-                    flex: 1
-                },
-                {
-                    xtype: 'form',
-                    flex: 1,
-                    maxWidth: 500,
-                    bodyPadding: 10,
-                    title: 'Login',
-                    items: [
+                    xtype: 'gridpanel',
+                    region: 'west',
+                    split: true,
+                    width: 248,
+                    title: 'Users',
+                    disableSelection: true,
+                    rowLines: false,
+                    store: 'Users',
+                    columns: [
                         {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            fieldLabel: 'Name'
-                        },
-                        {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            fieldLabel: 'Password'
-                        },
-                        {
-                            xtype: 'button',
-                            text: 'Login'
-                        },
-                        {
-                            xtype: 'fieldset',
-                            title: 'Don\'t Have an Account?',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    text: 'Create Account'
-                                }
-                            ]
+                            xtype: 'gridcolumn',
+                            width: 239,
+                            sortable: false,
+                            dataIndex: 'name',
+                            menuDisabled: true,
+                            text: 'Name'
                         }
                     ]
                 },
                 {
-                    xtype: 'container',
-                    flex: 1
+                    xtype: 'gridpanel',
+                    region: 'center',
+                    title: 'Profile',
+                    store: 'CurrentProfile',
+                    columns: [
+                        {
+                            xtype: 'datecolumn',
+                            dataIndex: 'timestamp',
+                            text: 'Checkin Time'
+                        }
+                    ],
+                    dockedItems: [
+                        {
+                            xtype: 'toolbar',
+                            dock: 'top',
+                            items: [
+                                {
+                                    xtype: 'tbfill'
+                                },
+                                {
+                                    xtype: 'tbtext',
+                                    hidden: true,
+                                    text: 'Welcome !'
+                                },
+                                {
+                                    xtype: 'button',
+                                    hidden: true,
+                                    text: 'Logout'
+                                },
+                                {
+                                    xtype: 'button',
+                                    text: 'Login'
+                                },
+                                {
+                                    xtype: 'tbseparator'
+                                },
+                                {
+                                    xtype: 'button',
+                                    text: 'Create New Account'
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         });
