@@ -87,6 +87,13 @@ Ext.define('MyApp.controller.Controller', {
         window.show();
     },
 
+    onLogoutButtonClick: function(button, e, eOpts) {
+        this.getCurrentUserStore().removeAll();
+        button.setDisabled(true);
+        this.getLoginButton().setDisabled(false);
+        this.getWelcomeText().setText("");
+    },
+
     init: function(application) {
         this.control({
             "loginwindow #loginWindowButton": {
@@ -94,6 +101,9 @@ Ext.define('MyApp.controller.Controller', {
             },
             "#usersPanel #loginButton": {
                 click: this.onLoginButtonClick
+            },
+            "#usersPanel #logoutButton": {
+                click: this.onLogoutButtonClick
             }
         });
     }
