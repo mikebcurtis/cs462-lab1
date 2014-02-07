@@ -84,7 +84,7 @@ Ext.define('MyApp.controller.Controller', {
     onCreateWindowButtonClick: function(button, e, eOpts) {
         this.getUsersStore().add({
             id: Math.round(new Date().getTime() / 1000),
-            name: this.getCreateNameTextField().getRawValue(),
+            name: this.getCreateNameTextfield().getRawValue(),
             pass: this.getCreatePasswordTextfield().getRawValue()
         });
 
