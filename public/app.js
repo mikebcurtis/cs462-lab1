@@ -30,7 +30,8 @@ Ext.application({
     ],
     views: [
         'MyViewport',
-        'MyForm'
+        'loginwindow',
+        'createaccountwindow'
     ],
     autoCreateViewport: true,
     controllers: [

@@ -17,7 +17,7 @@ Ext.define('MyApp.view.MyViewport', {
     extend: 'Ext.container.Viewport',
 
     layout: {
-        type: 'border'
+        type: 'fit'
     },
 
     initComponent: function() {
@@ -26,65 +26,78 @@ Ext.define('MyApp.view.MyViewport', {
         Ext.applyIf(me, {
             items: [
                 {
-                    xtype: 'gridpanel',
-                    region: 'west',
-                    split: true,
-                    itemId: 'usersPanel',
-                    width: 240,
-                    title: 'Users',
-                    disableSelection: true,
-                    rowLines: false,
-                    store: 'Users',
-                    columns: [
+                    xtype: 'panel',
+                    width: 150,
+                    layout: {
+                        type: 'border'
+                    },
+                    title: 'CS462 Lab 1',
+                    items: [
                         {
-                            xtype: 'gridcolumn',
-                            width: 239,
-                            sortable: false,
-                            dataIndex: 'name',
-                            menuDisabled: true,
-                            text: 'Name'
-                        }
-                    ],
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'top',
-                            items: [
+                            xtype: 'gridpanel',
+                            region: 'west',
+                            split: true,
+                            itemId: 'usersPanel',
+                            width: 240,
+                            header: false,
+                            title: 'Users',
+                            rowLines: false,
+                            store: 'Users',
+                            columns: [
                                 {
-                                    xtype: 'tbtext',
-                                    hidden: true,
-                                    text: 'Welcome !'
-                                },
+                                    xtype: 'gridcolumn',
+                                    width: 239,
+                                    sortable: false,
+                                    dataIndex: 'name',
+                                    menuDisabled: true,
+                                    text: 'Registered Users'
+                                }
+                            ],
+                            dockedItems: [
                                 {
-                                    xtype: 'button',
-                                    hidden: true,
-                                    text: 'Logout'
-                                },
-                                {
-                                    xtype: 'button',
-                                    text: 'Login'
-                                },
-                                {
-                                    xtype: 'tbseparator'
-                                },
-                                {
-                                    xtype: 'button',
-                                    text: 'Create New Account'
+                                    xtype: 'toolbar',
+                                    dock: 'top',
+                                    items: [
+                                        {
+                                            xtype: 'tbtext',
+                                            hidden: true,
+                                            itemId: 'welcomeText',
+                                            text: 'Welcome !'
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            hidden: true,
+                                            itemId: 'logoutButton',
+                                            text: 'Logout'
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            itemId: 'loginButton',
+                                            text: 'Login'
+                                        },
+                                        {
+                                            xtype: 'tbseparator'
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            text: 'Create New Account'
+                                        }
+                                    ]
                                 }
                             ]
-                        }
-                    ]
-                },
-                {
-                    xtype: 'gridpanel',
-                    region: 'center',
-                    title: 'Profile',
-                    store: 'CurrentProfile',
-                    columns: [
+                        },
                         {
-                            xtype: 'datecolumn',
-                            dataIndex: 'timestamp',
-                            text: 'Checkin Time'
+                            xtype: 'gridpanel',
+                            region: 'center',
+                            title: 'Profile',
+                            store: 'CurrentProfile',
+                            columns: [
+                                {
+                                    xtype: 'datecolumn',
+                                    dataIndex: 'timestamp',
+                                    text: 'Checkin Time'
+                                }
+                            ]
                         }
                     ]
                 }

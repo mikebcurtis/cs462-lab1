@@ -17,17 +17,82 @@ Ext.define('MyApp.controller.Controller', {
     extend: 'Ext.app.Controller',
 
     stores: [
-        'Users'
+        'Users',
+        'CurrentUser'
+    ],
+
+    refs: [
+        {
+            ref: 'loginNameTextfield',
+            selector: 'loginwindow #loginNameTextfield'
+        },
+        {
+            ref: 'loginPasswordTextfield',
+            selector: 'loginwindow #loginPasswordTextfield'
+        },
+        {
+            ref: 'createNameTextfield',
+            selector: 'createaccountwindow #createNameTextfield'
+        },
+        {
+            ref: 'createPasswordTextfield',
+            selector: 'createaccountwindow #createPasswordTextfield'
+        },
+        {
+            ref: 'welcomeText',
+            selector: '#usersPanel #welcomeText'
+        },
+        {
+            ref: 'loginButton',
+            selector: '#usersPanel #loginButton'
+        },
+        {
+            ref: 'logoutButton',
+            selector: '#usersPanel #logoutButton'
+        }
     ],
 
     onUsersPanelBeforeRender: function(component, eOpts) {
         this.getUsersStore().load();
     },
 
+    onLoginButtonClick: function(button, e, eOpts) {
+        var name = this.getLoginNameTextfield().getRawValue();
+        var pass = this.getLoginPasswordTextfield().getRawValue();
+
+        var currentUserStore = this.getCurrentUserStore();
+
+        var welcomeText = this.getWelcomeText();
+        var loginButton = this.getLoginButton();
+        var logoutButton = this.getLogoutButton();
+
+        var window = button.up('window');
+
+        this.getUsersStore().each(function(user){
+            if (user.get('name') == name && user.get('pass') == pass {
+                currentUserStore.removeAll();
+                currentUserStore.add(user);
+
+                welcomeText.setText("Welcome " + name + "!");
+                welcomeText.disabled = false;
+
+                loginButton.disabled = true;
+                logoutButton.disabled = false;
+
+                window.destroy();
+
+                return false;
+            }
+        });
+    },
+
     init: function(application) {
         this.control({
             "#usersPanel": {
                 beforerender: this.onUsersPanelBeforeRender
+            },
+            "loginwindow #loginButton": {
+                click: this.onLoginButtonClick
             }
         });
     }
