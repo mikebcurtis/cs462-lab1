@@ -56,30 +56,12 @@ Ext.define('MyApp.controller.Controller', {
         var name = this.getLoginNameTextfield().getRawValue();
         var pass = this.getLoginPasswordTextfield().getRawValue();
 
-        var currentUserStore = this.getCurrentUserStore();
-
-        var welcomeText = this.getWelcomeText();
-        var loginButton = this.getLoginButton();
-        var logoutButton = this.getLogoutButton();
-
-        var window = button.up('window');
-
-        this.getUsersStore().each(function(user){
-            console.log("comparing " + user.get('name') + " and " + name + " : pass = " + user.get('pass') + " given = " + pass); // DEBUG
-            if (user.get('name') == name && user.get('pass') == pass) {
-                currentUserStore.removeAll();
-                currentUserStore.add(user);
-
-                welcomeText.setText("Welcome " + name + "!");
-
-                loginButton.setDisabled(true);
-                logoutButton.setDisabled(false);
-
-                window.destroy();
-
-                return false;
-            }
-        });
+        if (login(name,pass)) {
+            button.up('window').destroy();
+        }
+        else {
+            alert("Credentials do not match. Try again.");
+        }
     },
 
     onLoginButtonClick: function(button, e, eOpts) {
@@ -94,6 +76,52 @@ Ext.define('MyApp.controller.Controller', {
         this.getWelcomeText().setText("");
     },
 
+    onCreateAccountButtonClick: function(button, e, eOpts) {
+        var window = Ext.create('widget.createaccountwindow');
+        window.show();
+    },
+
+    onCreateWindowButtonClick: function(button, e, eOpts) {
+        this.getUsersStore().add({
+            id: Math.round(new Date().getTime() / 1000),
+            name: this.getCreateNameTextField().getRawValue(),
+            pass: this.getCreatePasswordTextfield().getRawValue()
+        });
+
+        login(this.getCreateNameTextField().getRawValue(), this.getCreatePasswordTextfield().getRawValue());
+
+        button.up('window').destroy();
+    },
+
+    login: function(name, pass) {
+        var currentUserStore = this.getCurrentUserStore();
+
+        var welcomeText = this.getWelcomeText();
+        var loginButton = this.getLoginButton();
+        var logoutButton = this.getLogoutButton();
+
+        var result = false;
+
+        this.getUsersStore().each(function(user){
+            console.log("comparing " + user.get('name') + " and " + name + " : pass = " + user.get('pass') + " given = " + pass); // DEBUG
+            if (user.get('name') == name && user.get('pass') == pass) {
+                currentUserStore.removeAll();
+                currentUserStore.add(user);
+
+                welcomeText.setText("Welcome " + name + "!");
+
+                loginButton.setDisabled(true);
+                logoutButton.setDisabled(false);
+
+                result = true;
+
+                return false;
+            }
+        });
+
+        return result;
+    },
+
     init: function(application) {
         this.control({
             "loginwindow #loginWindowButton": {
@@ -104,6 +132,12 @@ Ext.define('MyApp.controller.Controller', {
             },
             "#usersPanel #logoutButton": {
                 click: this.onLogoutButtonClick
+            },
+            "#usersPanel #createAccountButton": {
+                click: this.onCreateAccountButtonClick
+            },
+            "createaccountwindow #createWindowButton": {
+                click: this.onCreateWindowButtonClick
             }
         });
     }

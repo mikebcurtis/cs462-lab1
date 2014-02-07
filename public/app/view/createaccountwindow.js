@@ -53,7 +53,7 @@ Ext.define('MyApp.view.createaccountwindow', {
                         },
                         {
                             xtype: 'button',
-                            itemId: 'createButton',
+                            itemId: 'createWindowButton',
                             text: 'Create'
                         }
                     ]

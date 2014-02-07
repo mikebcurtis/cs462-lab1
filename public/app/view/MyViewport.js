@@ -79,6 +79,7 @@ Ext.define('MyApp.view.MyViewport', {
                                         },
                                         {
                                             xtype: 'button',
+                                            itemId: 'createAccountButton',
                                             text: 'Create New Account'
                                         }
                                     ]
