@@ -38,7 +38,7 @@ Ext.define('MyApp.view.MyViewport', {
                             region: 'west',
                             split: true,
                             itemId: 'usersPanel',
-                            width: 240,
+                            width: 293,
                             header: false,
                             title: 'Users',
                             rowLines: false,
@@ -60,13 +60,12 @@ Ext.define('MyApp.view.MyViewport', {
                                     items: [
                                         {
                                             xtype: 'tbtext',
-                                            hidden: true,
                                             itemId: 'welcomeText',
-                                            text: 'Welcome !'
+                                            text: ''
                                         },
                                         {
                                             xtype: 'button',
-                                            hidden: true,
+                                            disabled: true,
                                             itemId: 'logoutButton',
                                             text: 'Logout'
                                         },

@@ -71,10 +71,9 @@ Ext.define('MyApp.controller.Controller', {
                 currentUserStore.add(user);
 
                 welcomeText.setText("Welcome " + name + "!");
-                welcomeText.disabled = false;
 
-                loginButton.disabled = true;
-                logoutButton.disabled = false;
+                loginButton.setDisabled(true);
+                logoutButton.setDisabled(false);
 
                 window.destroy();
 
