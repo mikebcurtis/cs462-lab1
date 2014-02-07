@@ -18,5 +18,18 @@ Ext.define('MyApp.controller.Controller', {
 
     stores: [
         'Users'
-    ]
+    ],
+
+    onUsersPanelBeforeRender: function(component, eOpts) {
+        this.getUsersStore().load();
+    },
+
+    init: function(application) {
+        this.control({
+            "#usersPanel": {
+                beforerender: this.onUsersPanelBeforeRender
+            }
+        });
+    }
+
 });
