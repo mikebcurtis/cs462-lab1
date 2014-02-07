@@ -88,7 +88,7 @@ Ext.define('MyApp.controller.Controller', {
             pass: this.getCreatePasswordTextfield().getRawValue()
         });
 
-        login(this.getCreateNameTextField().getRawValue(), this.getCreatePasswordTextfield().getRawValue());
+        this.login(this.getCreateNameTextField().getRawValue(), this.getCreatePasswordTextfield().getRawValue());
 
         button.up('window').destroy();
     },
