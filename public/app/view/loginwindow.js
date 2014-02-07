@@ -40,7 +40,6 @@ Ext.define('MyApp.view.loginwindow', {
                     items: [
                         {
                             xtype: 'textfield',
-                            anchor: '100%',
                             itemId: 'loginNameTextfield',
                             fieldLabel: 'Name',
                             maxLength: 30,
@@ -48,7 +47,6 @@ Ext.define('MyApp.view.loginwindow', {
                         },
                         {
                             xtype: 'textfield',
-                            anchor: '100%',
                             itemId: 'loginPasswordTextfield',
                             fieldLabel: 'Password',
                             inputType: 'password'
@@ -56,7 +54,7 @@ Ext.define('MyApp.view.loginwindow', {
                         {
                             xtype: 'button',
                             formBind: true,
-                            itemId: 'loginButton',
+                            itemId: 'loginWindowButton',
                             text: 'Login'
                         }
                     ]

@@ -56,7 +56,7 @@ Ext.define('MyApp.controller.Controller', {
         this.getUsersStore().load();
     },
 
-    onLoginButtonClick: function(button, e, eOpts) {
+    onLoginWindowButtonClick: function(button, e, eOpts) {
         var name = this.getLoginNameTextfield().getRawValue();
         var pass = this.getLoginPasswordTextfield().getRawValue();
 
@@ -69,7 +69,7 @@ Ext.define('MyApp.controller.Controller', {
         var window = button.up('window');
 
         this.getUsersStore().each(function(user){
-            if (user.get('name') == name && user.get('pass') == pass {
+            if (user.get('name') == name && user.get('pass') == pass) {
                 currentUserStore.removeAll();
                 currentUserStore.add(user);
 
@@ -86,12 +86,20 @@ Ext.define('MyApp.controller.Controller', {
         });
     },
 
+    onLoginButtonClick: function(button, e, eOpts) {
+        var window = Ext.create('widget.loginwindow');
+        window.show();
+    },
+
     init: function(application) {
         this.control({
             "#usersPanel": {
                 beforerender: this.onUsersPanelBeforeRender
             },
-            "loginwindow #loginButton": {
+            "loginwindow #loginWindowButton": {
+                click: this.onLoginWindowButtonClick
+            },
+            "#usersPanel #loginButton": {
                 click: this.onLoginButtonClick
             }
         });
