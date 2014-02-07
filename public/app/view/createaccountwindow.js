@@ -15,6 +15,7 @@
 
 Ext.define('MyApp.view.createaccountwindow', {
     extend: 'Ext.window.Window',
+    alias: 'widget.createaccountwindow',
 
     height: 250,
     width: 400,

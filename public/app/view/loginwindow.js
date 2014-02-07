@@ -15,6 +15,7 @@
 
 Ext.define('MyApp.view.loginwindow', {
     extend: 'Ext.window.Window',
+    alias: 'widget.loginwindow',
 
     height: 250,
     width: 400,
