@@ -28,8 +28,10 @@ Ext.define('MyApp.store.Users', {
             storeId: 'MyJsonStore',
             proxy: {
                 type: 'ajax',
+                url: '/users',
                 reader: {
-                    type: 'json'
+                    type: 'json',
+                    root: 'data'
                 }
             },
             listeners: {
@@ -42,28 +44,28 @@ Ext.define('MyApp.store.Users', {
     },
 
     onJsonstoreBeforeLoad: function(store, operation, eOpts) {
-        var this_store = store;
+        /*var this_store = store;
 
         Ext.Ajax.request({
-            method:'GET',
-            url:'/users',
-            params: {
-            },
-            success: function (result) {
-                var res_obj = Ext.decode(result.responseText);
-                if (!res_obj.results) {
-                    Ext.Msg.alert('Error', res_obj.response);
-                }
-                else {
-                    console.log(res_obj);
-                }
-            },
-            failure:function () {
-                Ext.Msg.alert('Error', 'Could not retrieve users.');
-            }
+        method:'GET',
+        url:'/users',
+        params: {
+        },
+        success: function (result) {
+        var res_obj = Ext.decode(result.responseText);
+        if (!res_obj.results) {
+        Ext.Msg.alert('Error', res_obj.response);
+        }
+        else {
+        console.log(res_obj);
+        }
+        },
+        failure:function () {
+        Ext.Msg.alert('Error', 'Could not retrieve users.');
+        }
         });
 
-        return false;
+        return false; */
     }
 
 });
