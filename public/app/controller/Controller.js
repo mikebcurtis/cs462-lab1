@@ -103,7 +103,7 @@ Ext.define('MyApp.controller.Controller', {
         var result = false;
 
         this.getUsersStore().each(function(user){
-            console.log("comparing " + user.get('name') + " and " + name + " : pass = " + user.get('pass') + " given = " + pass); // DEBUG
+            //console.log("comparing " + user.get('name') + " and " + name + " : pass = " + user.get('pass') + " given = " + pass); // DEBUG
             if (user.get('name') == name && user.get('pass') == pass) {
                 currentUserStore.removeAll();
                 currentUserStore.add(user);
