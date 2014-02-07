@@ -19,6 +19,9 @@ Ext.define('MyApp.model.User', {
     fields: [
         {
             name: 'name'
+        },
+        {
+            name: 'pass'
         }
     ]
 });
