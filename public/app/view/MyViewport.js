@@ -29,7 +29,8 @@ Ext.define('MyApp.view.MyViewport', {
                     xtype: 'gridpanel',
                     region: 'west',
                     split: true,
-                    width: 248,
+                    itemId: 'usersPanel',
+                    width: 240,
                     title: 'Users',
                     disableSelection: true,
                     rowLines: false,
@@ -43,28 +44,12 @@ Ext.define('MyApp.view.MyViewport', {
                             menuDisabled: true,
                             text: 'Name'
                         }
-                    ]
-                },
-                {
-                    xtype: 'gridpanel',
-                    region: 'center',
-                    title: 'Profile',
-                    store: 'CurrentProfile',
-                    columns: [
-                        {
-                            xtype: 'datecolumn',
-                            dataIndex: 'timestamp',
-                            text: 'Checkin Time'
-                        }
                     ],
                     dockedItems: [
                         {
                             xtype: 'toolbar',
                             dock: 'top',
                             items: [
-                                {
-                                    xtype: 'tbfill'
-                                },
                                 {
                                     xtype: 'tbtext',
                                     hidden: true,
@@ -87,6 +72,19 @@ Ext.define('MyApp.view.MyViewport', {
                                     text: 'Create New Account'
                                 }
                             ]
+                        }
+                    ]
+                },
+                {
+                    xtype: 'gridpanel',
+                    region: 'center',
+                    title: 'Profile',
+                    store: 'CurrentProfile',
+                    columns: [
+                        {
+                            xtype: 'datecolumn',
+                            dataIndex: 'timestamp',
+                            text: 'Checkin Time'
                         }
                     ]
                 }
