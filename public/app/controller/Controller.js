@@ -110,6 +110,8 @@ Ext.define('MyApp.controller.Controller', {
     },
 
     onCreateWindowButtonClick: function(button, e, eOpts) {
+        this.onLogoutButtonClick(this.getLogoutButton(), {}, {});
+
         this.getUsersStore().add({
             id: Math.round(new Date().getTime() / 1000),
             name: this.getCreateNameTextfield().getRawValue(),
