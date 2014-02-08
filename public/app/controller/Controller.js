@@ -107,7 +107,7 @@ Ext.define('MyApp.controller.Controller', {
 
     onCreateWindowButtonClick: function(button, e, eOpts) {
         // logout current user if necessary
-        if (this.getCurrentUserStore().count() <= 0) {
+        if (this.getCurrentUserStore().count() >= 1) {
             this.onLogoutButtonClick(this.getLogoutButton(), {}, {});
         }
 
@@ -122,11 +122,15 @@ Ext.define('MyApp.controller.Controller', {
             },
             scope: this,
             success: function(response){
+                console.log("after success"); // DEBUG
                 var res = Ext.decode(response.responseText);
                 if (res["results"] === true) {
+                    console.log("in if"); // DEBUG
                     this.login(name, pass);           
 
+                    console.log("before destroying window"); // DEBUG
                     button.up('window').destroy();
+                    this.getUsersStore().load();
                 }
 
                 Ext.Msg.alert("Create User", res["message"]);
