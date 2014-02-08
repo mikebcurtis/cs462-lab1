@@ -68,8 +68,8 @@ Ext.define('MyApp.controller.Controller', {
             method: 'POST',
             url: '/login',
             params: {
-                name: name,
-                pass: pass
+                name: this.getLoginNameTextfield().getRawValue(),
+                pass: this.getLoginPasswordTextfield().getRawValue()
             },
             scope: this,
             success: function(response){
