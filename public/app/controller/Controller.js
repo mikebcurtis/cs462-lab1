@@ -122,15 +122,12 @@ Ext.define('MyApp.controller.Controller', {
             },
             scope: this,
             success: function(response){
-                console.log("after success"); // DEBUG
                 var res = Ext.decode(response.responseText);
                 if (res["results"] === true) {
-                    console.log("in if"); // DEBUG
+                    this.getUsersStore().add(res["data"]);
                     this.login(name, pass);           
 
-                    console.log("before destroying window"); // DEBUG
                     button.up('window').destroy();
-                    this.getUsersStore().load();
                 }
 
                 Ext.Msg.alert("Create User", res["message"]);
