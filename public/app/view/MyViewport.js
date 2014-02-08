@@ -52,43 +52,12 @@ Ext.define('MyApp.view.MyViewport', {
                                     menuDisabled: true,
                                     text: 'Registered Users'
                                 }
-                            ],
-                            dockedItems: [
-                                {
-                                    xtype: 'toolbar',
-                                    dock: 'top',
-                                    items: [
-                                        {
-                                            xtype: 'tbtext',
-                                            itemId: 'welcomeText',
-                                            text: ''
-                                        },
-                                        {
-                                            xtype: 'button',
-                                            disabled: true,
-                                            itemId: 'logoutButton',
-                                            text: 'Logout'
-                                        },
-                                        {
-                                            xtype: 'button',
-                                            itemId: 'loginButton',
-                                            text: 'Login'
-                                        },
-                                        {
-                                            xtype: 'tbseparator'
-                                        },
-                                        {
-                                            xtype: 'button',
-                                            itemId: 'createAccountButton',
-                                            text: 'Create New Account'
-                                        }
-                                    ]
-                                }
                             ]
                         },
                         {
                             xtype: 'gridpanel',
                             region: 'center',
+                            header: false,
                             title: 'Profile',
                             store: 'CurrentProfile',
                             columns: [
@@ -96,6 +65,41 @@ Ext.define('MyApp.view.MyViewport', {
                                     xtype: 'datecolumn',
                                     dataIndex: 'timestamp',
                                     text: 'Checkin Time'
+                                }
+                            ]
+                        }
+                    ],
+                    dockedItems: [
+                        {
+                            xtype: 'toolbar',
+                            dock: 'top',
+                            items: [
+                                {
+                                    xtype: 'tbfill'
+                                },
+                                {
+                                    xtype: 'tbtext',
+                                    itemId: 'welcomeText',
+                                    text: ''
+                                },
+                                {
+                                    xtype: 'button',
+                                    disabled: true,
+                                    itemId: 'logoutButton',
+                                    text: 'Logout'
+                                },
+                                {
+                                    xtype: 'button',
+                                    itemId: 'loginButton',
+                                    text: 'Login'
+                                },
+                                {
+                                    xtype: 'tbseparator'
+                                },
+                                {
+                                    xtype: 'button',
+                                    itemId: 'createAccountButton',
+                                    text: 'Create New Account'
                                 }
                             ]
                         }
