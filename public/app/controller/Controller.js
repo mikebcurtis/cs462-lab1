@@ -115,7 +115,7 @@ Ext.define('MyApp.controller.Controller', {
 
         Ext.Ajax.request({
             method: 'POST',
-            url: '/users/' + encodeURIcomponent(name),
+            url: '/users/' + encodeURIComponent(name),
             params: {
                 pass: pass
             },
