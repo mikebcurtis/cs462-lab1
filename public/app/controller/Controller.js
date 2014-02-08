@@ -76,7 +76,8 @@ Ext.define('MyApp.controller.Controller', {
                 var res = Ext.decode(response.responseText);
                 if (res["results"] === true) {
                     this.getCurrentUserStore().removeAll();
-                    this.getCurrentUserStore().add(user);
+                    var users = this.getUsersStore();
+                    this.getCurrentUserStore().add(users.getAt(users.find('name', this.getLoginNameTextfield().getRawValue())));
 
                     this.getWelcomeText().setText("Welcome " + name + "!");
 
