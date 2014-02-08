@@ -84,8 +84,8 @@ Ext.define('MyApp.controller.Controller', {
                     //this.getLoginButton().setDisabled(true);
                     //this.getLogoutButton().setDisabled(false);            
 
-                    this.getLoginButton().setVisible(true);
-                    this.getLogoutButton().setVisible(false);            
+                    this.getLoginButton().setVisible(false);
+                    this.getLogoutButton().setVisible(true);            
 
                     button.up('window').destroy();
                 }
@@ -102,8 +102,8 @@ Ext.define('MyApp.controller.Controller', {
 
     onLogoutButtonClick: function(button, e, eOpts) {
         this.getCurrentUserStore().removeAll();
-        button.setDisabled(true);
-        this.getLoginButton().setDisabled(false);
+        button.setVisible(false);
+        this.getLoginButton().setVisible(true);
         this.getWelcomeText().setText("");
     },
 
@@ -124,6 +124,10 @@ Ext.define('MyApp.controller.Controller', {
         this.login(this.getCreateNameTextfield().getRawValue(), this.getCreatePasswordTextfield().getRawValue());
 
         button.up('window').destroy();
+    },
+
+    onLogoutButtonRender: function(component, eOpts) {
+        component.setVisible(false);
     },
 
     login: function(name, pass) {
@@ -164,7 +168,8 @@ Ext.define('MyApp.controller.Controller', {
                 click: this.onLoginButtonClick
             },
             "#mainPanel #logoutButton": {
-                click: this.onLogoutButtonClick
+                click: this.onLogoutButtonClick,
+                render: this.onLogoutButtonRender
             },
             "#mainPanel #createAccountButton": {
                 click: this.onCreateAccountButtonClick
