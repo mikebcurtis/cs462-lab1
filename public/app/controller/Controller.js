@@ -65,7 +65,7 @@ Ext.define('MyApp.controller.Controller', {
         */
 
         var name = this.getLoginNameTextfield().getRawValue();
-        var pass = this.getLoginNameTextfield().getRawValue();
+        var pass = this.getLoginPasswordTextfield().getRawValue();
 
         Ext.Ajax.request({
             method: 'POST',
