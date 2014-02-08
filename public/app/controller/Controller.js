@@ -53,15 +53,42 @@ Ext.define('MyApp.controller.Controller', {
     ],
 
     onLoginWindowButtonClick: function(button, e, eOpts) {
-        var name = this.getLoginNameTextfield().getRawValue();
+        /*var name = this.getLoginNameTextfield().getRawValue();
         var pass = this.getLoginPasswordTextfield().getRawValue();
 
         if (login(name,pass)) {
-            button.up('window').destroy();
+        button.up('window').destroy();
         }
         else {
-            alert("Credentials do not match. Try again.");
+        alert("Credentials do not match. Try again.");
         }
+        */
+
+        Ext.Ajax.request({
+            method: 'POST',
+            url: '/login',
+            params: {
+                name: name,
+                pass: pass
+            },
+            scope: this,
+            success: function(response){
+                var res = Ext.decode(response.responseText);
+                if (res["results"] === true) {
+                    this.getCurrentUserStore().removeAll();
+                    this.getCurrentUserStore().add(user);
+
+                    this.getWelcomeText().setText("Welcome " + name + "!");
+
+                    loginButton.setDisabled(true);
+                    logoutButton.setDisabled(false);            
+
+                    button.up('window').destroy();
+                }
+
+                Ext.Msg.alert("Login", res["message"]);
+            }
+        });
     },
 
     onLoginButtonClick: function(button, e, eOpts) {
