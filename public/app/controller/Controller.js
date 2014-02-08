@@ -64,12 +64,15 @@ Ext.define('MyApp.controller.Controller', {
         }
         */
 
+        var name = this.getLoginNameTextfield().getRawValue();
+        var pass = this.getLoginNameTextfield().getRawValue();
+
         Ext.Ajax.request({
             method: 'POST',
             url: '/login',
             params: {
-                name: this.getLoginNameTextfield().getRawValue(),
-                pass: this.getLoginPasswordTextfield().getRawValue()
+                name: name,
+                pass: pass
             },
             scope: this,
             success: function(response){
@@ -77,7 +80,7 @@ Ext.define('MyApp.controller.Controller', {
                 if (res["results"] === true) {
                     this.getCurrentUserStore().removeAll();
                     var users = this.getUsersStore();
-                    this.getCurrentUserStore().add(users.getAt(users.find('name', this.getLoginNameTextfield().getRawValue())));
+                    this.getCurrentUserStore().add(users.getAt(users.find('name', name)));
 
                     this.getWelcomeText().setText("Welcome " + name + "!");
 

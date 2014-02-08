@@ -85,7 +85,6 @@ Ext.define('MyApp.view.MyViewport', {
                                 },
                                 {
                                     xtype: 'button',
-                                    disabled: true,
                                     itemId: 'logoutButton',
                                     text: 'Logout'
                                 },
