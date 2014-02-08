@@ -27,6 +27,7 @@ Ext.define('MyApp.view.MyViewport', {
             items: [
                 {
                     xtype: 'panel',
+                    itemId: 'mainPanel',
                     width: 150,
                     layout: {
                         type: 'border'

@@ -40,15 +40,15 @@ Ext.define('MyApp.controller.Controller', {
         },
         {
             ref: 'welcomeText',
-            selector: '#usersPanel #welcomeText'
+            selector: '#mainPanel #welcomeText'
         },
         {
             ref: 'loginButton',
-            selector: '#usersPanel #loginButton'
+            selector: '#mainPanel #loginButton'
         },
         {
             ref: 'logoutButton',
-            selector: '#usersPanel #logoutButton'
+            selector: '#mainPanel #logoutButton'
         }
     ],
 
@@ -160,13 +160,13 @@ Ext.define('MyApp.controller.Controller', {
             "loginwindow #loginWindowButton": {
                 click: this.onLoginWindowButtonClick
             },
-            "#usersPanel #loginButton": {
+            "#mainPanel #loginButton": {
                 click: this.onLoginButtonClick
             },
-            "#usersPanel #logoutButton": {
+            "#mainPanel #logoutButton": {
                 click: this.onLogoutButtonClick
             },
-            "#usersPanel #createAccountButton": {
+            "#mainPanel #createAccountButton": {
                 click: this.onCreateAccountButtonClick
             },
             "createaccountwindow #createWindowButton": {
