@@ -81,8 +81,8 @@ Ext.define('MyApp.controller.Controller', {
 
                     this.getWelcomeText().setText("Welcome " + name + "!");
 
-                    loginButton.setDisabled(true);
-                    logoutButton.setDisabled(false);            
+                    this.getLoginButton().setDisabled(true);
+                    this.getLogoutButton().setDisabled(false);            
 
                     button.up('window').destroy();
                 }
