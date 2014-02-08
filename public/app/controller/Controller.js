@@ -111,7 +111,8 @@ Ext.define('MyApp.controller.Controller', {
             this.onLogoutButtonClick(this.getLogoutButton(), {}, {});
         }
 
-        button.up('window').destroy();
+        var name = this.getCreateNameTextfield().getRawValue();
+        var pass = this.getCreatePasswordTextfield().getRawValue();
 
         Ext.Ajax.request({
             method: 'POST',
