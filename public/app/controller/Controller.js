@@ -139,6 +139,33 @@ Ext.define('MyApp.controller.Controller', {
         component.setVisible(false);
     },
 
+    onUserSelect: function(rowmodel, record, index, eOpts) {
+        var params = {};
+        if (record.get('name') === this.getCurrentUserStore().first().get('name') && record.get('access_token') !== undefined) {
+            params = {name: record.get('name'), access_token: record.get('access_token')};
+        }
+        else {
+            params = {name: record.get('name')};
+        }
+
+        Ext.Ajax.request({
+            method: 'GET',
+            url: '/checkins',
+            params: params,
+            scope: this,
+            success: function(response){
+                var res = Ext.decode(response.responseText);
+                if (res["results"] === true) {
+                    this.login(name, pass);
+
+                    button.up('window').destroy();
+                }
+
+                Ext.Msg.alert("Login", res["message"]);
+            }
+        });
+    },
+
     login: function(name, pass) {
         this.getCurrentUserStore().removeAll();
         var users = this.getUsersStore();
@@ -170,6 +197,9 @@ Ext.define('MyApp.controller.Controller', {
             },
             "createaccountwindow #createWindowButton": {
                 click: this.onCreateWindowButtonClick
+            },
+            "#usersPanel": {
+                select: this.onUserSelect
             }
         });
     }
