@@ -78,17 +78,7 @@ Ext.define('MyApp.controller.Controller', {
             success: function(response){
                 var res = Ext.decode(response.responseText);
                 if (res["results"] === true) {
-                    this.getCurrentUserStore().removeAll();
-                    var users = this.getUsersStore();
-                    this.getCurrentUserStore().add(users.getAt(users.find('name', name)));
-
-                    this.getWelcomeText().setText("Welcome " + name + "!");
-
-                    //this.getLoginButton().setDisabled(true);
-                    //this.getLogoutButton().setDisabled(false);            
-
-                    this.getLoginButton().setVisible(false);
-                    this.getLogoutButton().setVisible(true);            
+                    this.login(name, pass);
 
                     button.up('window').destroy();
                 }
@@ -116,17 +106,31 @@ Ext.define('MyApp.controller.Controller', {
     },
 
     onCreateWindowButtonClick: function(button, e, eOpts) {
-        this.onLogoutButtonClick(this.getLogoutButton(), {}, {});
-
-        this.getUsersStore().add({
-            id: Math.round(new Date().getTime() / 1000),
-            name: this.getCreateNameTextfield().getRawValue(),
-            pass: this.getCreatePasswordTextfield().getRawValue()
-        });
-
-        this.login(this.getCreateNameTextfield().getRawValue(), this.getCreatePasswordTextfield().getRawValue());
+        // logout current user if necessary
+        if (this.getCurrentUserStore().count() <= 0) {
+            this.onLogoutButtonClick(this.getLogoutButton(), {}, {});
+        }
 
         button.up('window').destroy();
+
+        Ext.Ajax.request({
+            method: 'POST',
+            url: '/users/' + encodeURIcomponent(name),
+            params: {
+                pass: pass
+            },
+            scope: this,
+            success: function(response){
+                var res = Ext.decode(response.responseText);
+                if (res["results"] === true) {
+                    this.login(name, pass);           
+
+                    button.up('window').destroy();
+                }
+
+                Ext.Msg.alert("Create User", res["message"]);
+            }
+        });
     },
 
     onLogoutButtonRender: function(component, eOpts) {
@@ -134,32 +138,17 @@ Ext.define('MyApp.controller.Controller', {
     },
 
     login: function(name, pass) {
-        var currentUserStore = this.getCurrentUserStore();
+        this.getCurrentUserStore().removeAll();
+        var users = this.getUsersStore();
+        this.getCurrentUserStore().add(users.getAt(users.find('name', name)));
 
-        var welcomeText = this.getWelcomeText();
-        var loginButton = this.getLoginButton();
-        var logoutButton = this.getLogoutButton();
+        this.getWelcomeText().setText("Welcome " + name + "!");
 
-        var result = false;
+        //this.getLoginButton().setDisabled(true);
+        //this.getLogoutButton().setDisabled(false);            
 
-        this.getUsersStore().each(function(user){
-            //console.log("comparing " + user.get('name') + " and " + name + " : pass = " + user.get('pass') + " given = " + pass); // DEBUG
-            if (user.get('name') == name && user.get('pass') == pass) {
-                currentUserStore.removeAll();
-                currentUserStore.add(user);
-
-                welcomeText.setText("Welcome " + name + "!");
-
-                loginButton.setDisabled(true);
-                logoutButton.setDisabled(false);
-
-                result = true;
-
-                return false;
-            }
-        });
-
-        return result;
+        this.getLoginButton().setVisible(false);
+        this.getLogoutButton().setVisible(true); 
     },
 
     init: function(application) {
