@@ -141,29 +141,14 @@ Ext.define('MyApp.controller.Controller', {
 
     onUserSelect: function(rowmodel, record, index, eOpts) {
         var params = {};
-        if (record.get('name') === this.getCurrentUserStore().first().get('name') && record.get('access_token') !== undefined) {
-            params = {name: record.get('name'), access_token: record.get('access_token')};
+        if (this.getCurrentUserStore().count() > 0 && record.get('name') === this.getCurrentUserStore().first().get('name') && record.get('access_token') !== undefined) {
+            this.getCheckins(record.get('name'), record.get('pass'), record.get('access_token'));
         }
-        else {
-            params = {name: record.get('name')};
+        else if (this.getCurrentUserStore().count() > 0 && record.get('name') === this.getCurrentUserStore().first().get('name')) {
+            var redirect = encodeURIComponent("http:///ec2-54-80-167-106.compute-1.amazonaws.com/foursquare_redirect");
+            var url = "https://foursquare.com/oauth2/authenticate?client_id=FXDWFN5WXZ0VHZGO3C3QMF5SS42S40H3HTDYOW1SDCBXY3MV&response_type=code&redirect_uri=" + redirect;
+            Ext.Msg.alert("Connect to Foursquare", "<a href='" + url + "'>Click Here</a> to connect to Foursquare.");
         }
-
-        Ext.Ajax.request({
-            method: 'GET',
-            url: '/checkins',
-            params: params,
-            scope: this,
-            success: function(response){
-                var res = Ext.decode(response.responseText);
-                if (res["results"] === true) {
-                    this.login(name, pass);
-
-                    button.up('window').destroy();
-                }
-
-                Ext.Msg.alert("Login", res["message"]);
-            }
-        });
     },
 
     login: function(name, pass) {
@@ -178,6 +163,23 @@ Ext.define('MyApp.controller.Controller', {
 
         this.getLoginButton().setVisible(false);
         this.getLogoutButton().setVisible(true); 
+    },
+
+    getCheckins: function(user, pass, access_token) {
+        Ext.Ajax.request({
+            method: 'GET',
+            url: '/checkins',
+            params: params,
+            scope: this,
+            success: function(response){
+                var res = Ext.decode(response.responseText);
+                if (res["results"] === true) {
+                    console.log("retrieved checkins: " + res["data"]); // DEBUG
+                }
+
+                Ext.Msg.alert("Login", res["message"]);
+            }
+        });
     },
 
     init: function(application) {
