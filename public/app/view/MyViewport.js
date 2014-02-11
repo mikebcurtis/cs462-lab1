@@ -46,6 +46,32 @@ Ext.define('MyApp.view.MyViewport', {
                             store: 'Users',
                             columns: [
                                 {
+                                    xtype: 'actioncolumn',
+                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                        var userStore = Ext.getStore("CurrentUser");
+                                        if (userStore.count() > 0 && record.get("name") === userStore.first().get("name")) {
+                                            if (userStore.first().get("token") === undefined) {
+                                                var redirect = encodeURIComponent("http:///ec2-54-80-167-106.compute-1.amazonaws.com/foursquare_redirect");
+                                                var url = "https://foursquare.com/oauth2/authenticate?client_id=FXDWFN5WXZ0VHZGO3C3QMF5SS42S40H3HTDYOW1SDCBXY3MV&response_type=code&redirect_uri=" + redirect;
+                                                url = encodeURIComponent(url);
+                                                return "<a href='" + url + "'>Connect to foursquare</a>";
+                                            }
+                                            else {
+                                                return "Connected to foursquare!";
+                                            }
+                                        }
+                                        else {
+                                            return value;
+                                        }
+                                    },
+                                    width: 50,
+                                    items: [
+                                        {
+
+                                        }
+                                    ]
+                                },
+                                {
                                     xtype: 'gridcolumn',
                                     width: 239,
                                     sortable: false,
