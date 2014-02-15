@@ -149,6 +149,27 @@ Ext.define('MyApp.controller.Controller', {
             var url = "https://foursquare.com/oauth2/authenticate?client_id=FXDWFN5WXZ0VHZGO3C3QMF5SS42S40H3HTDYOW1SDCBXY3MV&response_type=code&redirect_uri=" + redirect;
             Ext.Msg.alert("Connect to Foursquare", "<a href='" + url + "'>Click Here</a> to connect to Foursquare.");
         }
+        else if (record.get('access_token') !== undefined) {
+            this.getLastCheckin(record.get('name'), record.get('pass'), record.get('access_token'));
+        }
+    },
+
+    onViewportRender: function(component, eOpts) {
+        Ext.Ajax.request({
+            method: 'GET',
+            url: '/logged_in',
+            params: {
+
+            },
+            scope: this,
+            success: function(response){
+                var res = Ext.decode(response.responseText);
+                if (res["results"] === true) {
+                    this.login(res["data"].name, res["data"].pass);
+                }
+
+            }
+        });
     },
 
     login: function(name, pass) {
@@ -166,6 +187,14 @@ Ext.define('MyApp.controller.Controller', {
     },
 
     getCheckins: function(user, pass, access_token) {
+        console.log("get checkins"); 
+
+        var params = {
+            name: user,
+            pass: pass,
+            access_token: access_token
+        };
+
         Ext.Ajax.request({
             method: 'GET',
             url: '/checkins',
@@ -180,6 +209,10 @@ Ext.define('MyApp.controller.Controller', {
                 Ext.Msg.alert("Login", res["message"]);
             }
         });
+    },
+
+    getLastCheckin: function(name, pass, access_token) {
+
     },
 
     init: function(application) {
@@ -202,6 +235,9 @@ Ext.define('MyApp.controller.Controller', {
             },
             "#usersPanel": {
                 select: this.onUserSelect
+            },
+            "viewport": {
+                render: this.onViewportRender
             }
         });
     }

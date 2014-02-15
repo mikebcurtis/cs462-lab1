@@ -18,7 +18,7 @@ Ext.define('MyApp.model.Checkin', {
 
     fields: [
         {
-            name: 'timestamp'
+            name: 'data'
         }
     ]
 });

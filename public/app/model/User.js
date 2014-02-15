@@ -22,6 +22,9 @@ Ext.define('MyApp.model.User', {
         },
         {
             name: 'pass'
+        },
+        {
+            name: 'access_token'
         }
     ]
 });
