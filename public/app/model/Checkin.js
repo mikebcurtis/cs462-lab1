@@ -18,7 +18,16 @@ Ext.define('MyApp.model.Checkin', {
 
     fields: [
         {
-            name: 'data'
+            name: 'name'
+        },
+        {
+            name: 'address'
+        },
+        {
+            name: 'city'
+        },
+        {
+            name: 'state'
         }
     ]
 });
